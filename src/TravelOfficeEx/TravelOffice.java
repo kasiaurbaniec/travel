@@ -10,6 +10,14 @@ public class TravelOffice {
     Set<Customer> setOfCustomers = new HashSet<>();
     Map<String, Trip> mapOfTrips = new HashMap<>();
 
+    public Set<Customer> getSetOfCustomers() {
+        return setOfCustomers;
+    }
+
+    public Map<String, Trip> getMapOfTrips() {
+        return mapOfTrips;
+    }
+
     public void addCustomer(Customer customer) {
         setOfCustomers.add(customer);
 //        if (customerCount == 0) {

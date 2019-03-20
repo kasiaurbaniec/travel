@@ -25,10 +25,10 @@ public class Date {
                 "-" + year ;
     }
 
-    public static Date of(String str) {
-        char regg = str.charAt(2);
-        String reg = Character.toString(regg);
-        String[] dateTab = str.split(reg);
+    public static Date of(String str, String separator) {
+
+
+        String[] dateTab = str.split(separator);
         int d = Integer.parseInt(dateTab[0]);
         int m = Integer.parseInt(dateTab[1]);
         int y = Integer.parseInt(dateTab[2]);
