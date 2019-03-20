@@ -21,7 +21,7 @@ public class Date {
 
     @Override
     public String toString() {
-        return "Date" +
+        return
                 " " + day +
                 "-" + month +
                 "-" + year;

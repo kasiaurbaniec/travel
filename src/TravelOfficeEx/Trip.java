@@ -6,7 +6,7 @@ public class Trip {
     private Date start;
     private Date end;
     private String desctription;
-    private int price;
+    private int price=0;
 
     public int getPrice() {
         return price;
@@ -33,7 +33,7 @@ public class Trip {
 
 
     public String toString(){
-        return " desctription: "+getDesctription()+" from "+start.toString()+" to  "+end.toString()+" price: "+price;
+        return " destination: "+getDesctription()+" from "+start.toString()+" to  "+end.toString()+" price: "+getPrice();
     }
 
 }

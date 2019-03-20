@@ -66,9 +66,10 @@ public class MainHandler implements UserCustomer {
 
     @Override
     public Trip addTrip() {
-        System.out.println("give name for new trip");
+        Trip trip = null;
+        System.out.println("give id for new trip");
         String name = scanner.next();
-        System.out.println("give description of a trip");
+        System.out.println("give destination of a trip");
         String desc = scanner.next();
         Date startDate;
         do {
@@ -83,7 +84,25 @@ public class MainHandler implements UserCustomer {
             String dateStrEnd = scanner.next();
             endDate = Date.of(dateStrEnd, "-");
         } while (endDate == null);
-        Trip trip = new Trip(startDate, endDate, desc);
+        System.out.println("give price");
+        int price = scanner.nextInt();
+        System.out.println("type domestic/abroad");
+        String domest = scanner.next();
+        if (domest.startsWith("d")) {
+            System.out.println("own arrival discount");
+            int disc = scanner.nextInt();
+            trip = new DomesticTrip(startDate, endDate, desc);
+            trip.setPrice(price);
+            ((DomesticTrip) trip).setOwnArrivalDiscount(disc);
+        } else {
+            trip = new AbroadTrip(startDate, endDate, desc);
+            trip.setPrice(price);
+            System.out.println("add insurance? y/n ");
+            String ins = scanner.next();
+            if (ins == "y") {
+                ((AbroadTrip) trip).setInsurance(true);
+            }
+        }
         to.addTrip(name, trip);
         System.out.printf("\nnew trip named %s created", name);
         return trip;
@@ -119,18 +138,12 @@ public class MainHandler implements UserCustomer {
     public boolean removeCustomer() {
         if (to.getCustomerCount() != 0) {
             System.out.println("give name of customer to remove");
-            Customer customer;
-            String clientName;
-            do {
-                System.out.println("give name of customer to remove");
-                clientName = scanner.next();
-                customer = to.findCustomerByName(clientName);
-                if (customer == null) {
-                    System.out.println("no such customer");
-                    showCustomers();
-                } else System.out.println("customer found");
-
-            } while (customer == null);
+            String clientName = scanner.next();
+            Customer customer = to.findCustomerByName(clientName);
+            if (customer == null) {
+                System.out.println("no such customer");
+                showCustomers();
+            } else System.out.println("customer found");
             to.removeCustomer(customer);
             System.out.printf("\n%s was removed", clientName);
             return true;
@@ -146,9 +159,9 @@ public class MainHandler implements UserCustomer {
                 System.out.println("give name of trip to remove");
                 tripName = scanner.next();
                 if (to.getMapOfTrips().containsKey(tripName)) {
-                    System.out.printf("\ntrip %s found ",tripName);
+                    System.out.printf("\ntrip %s found ", tripName);
                     to.removeTrip(tripName);
-                    System.out.printf("\ntrip %s removed ",tripName);
+                    System.out.printf("\ntrip %s removed ", tripName);
                     return true;
                 } else {
                     System.out.println("no such trip found");

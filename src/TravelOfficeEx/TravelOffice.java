@@ -59,10 +59,10 @@ public class TravelOffice {
     }
 
     public void showTrips() {
-        System.out.println("All trips: ");
+        System.out.print("All trips: ");
         for (Map.Entry<String,Trip>trip:mapOfTrips.entrySet()
              ) {
-            System.out.print(trip.getKey()+" ");
+            System.out.print("\n"+trip.getKey()+" ");
             System.out.print(trip.getValue().toString());
         }
     }
@@ -75,8 +75,8 @@ public class TravelOffice {
         }
     }
 
-    public void addTrip(String name, Trip trip) {
-        mapOfTrips.put(name, trip);
+    public void addTrip(String id, Trip trip) {
+        mapOfTrips.put(id, trip);
     }
 
     public boolean removeTrip(String name) {

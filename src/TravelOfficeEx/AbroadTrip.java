@@ -14,6 +14,13 @@ public class AbroadTrip extends Trip {
 
     @Override
     public int getPrice() {
-        return super.getPrice();
+        if(insurance==false){
+        return super.getPrice();}
+        else return super.getPrice()+200;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+" insurance includec: "+insurance;
     }
 }
