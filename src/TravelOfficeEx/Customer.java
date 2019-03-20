@@ -19,7 +19,7 @@ private Trip trip;
 
     public String toString(){
         if(!trip.toString().isEmpty()&&(!address.toString().isEmpty()))
-        {return "name: "+name+" \ntrip: "+trip.toString()+" \naddress: "+address.toString();}
+        {return "\nname: "+name+" \ntrip: "+trip.toString()+" \naddress: "+address.toString();}
         else {return "name: "+name;}
     }
 

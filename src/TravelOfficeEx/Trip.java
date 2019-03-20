@@ -23,6 +23,8 @@ public class Trip {
     }
 
 
+    public Trip() {
+    }
 
     public String getDesctription() {
         return desctription;
@@ -31,7 +33,7 @@ public class Trip {
 
 
     public String toString(){
-        return "trip desctription: "+getDesctription()+"from "+start.toString()+" toString "+end.toString()+" price: "+price;
+        return " desctription: "+getDesctription()+" from "+start.toString()+" to  "+end.toString()+" price: "+price;
     }
 
 }

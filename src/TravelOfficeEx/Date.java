@@ -19,11 +19,10 @@ public class Date {
 
     @Override
     public String toString() {
-        return "Date{" +
-                "day=" + day +
-                ", month=" + month +
-                ", year=" + year +
-                '}';
+        return "Date" +
+                " " + day +
+                "-" + month +
+                "-" + year ;
     }
 
     public static Date of(String str) {
