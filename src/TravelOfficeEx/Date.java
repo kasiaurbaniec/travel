@@ -1,5 +1,7 @@
 package TravelOfficeEx;
 
+import java.io.IOException;
+
 public class Date {
     int day;
     int month;
@@ -22,17 +24,19 @@ public class Date {
         return "Date" +
                 " " + day +
                 "-" + month +
-                "-" + year ;
+                "-" + year;
     }
 
     public static Date of(String str, String separator) {
-
-
         String[] dateTab = str.split(separator);
-        int d = Integer.parseInt(dateTab[0]);
-        int m = Integer.parseInt(dateTab[1]);
-        int y = Integer.parseInt(dateTab[2]);
-        return new Date(y, m, d);
+        if (dateTab.length == 3) {
+            int d = Integer.parseInt(dateTab[0]);
+            int m = Integer.parseInt(dateTab[1]);
+            int y = Integer.parseInt(dateTab[2]);
+            return new Date(y, m, d);
+        } else {
+            return null;
+        }
     }
 
     public Date(int y, int m, int d) {

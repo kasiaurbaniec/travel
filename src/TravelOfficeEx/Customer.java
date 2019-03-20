@@ -17,10 +17,11 @@ private Trip trip;
         this.trip = trip;
     }
 
-    public String toString(){
-        if(!trip.toString().isEmpty()&&(!address.toString().isEmpty()))
-        {return "\nname: "+name+" \ntrip: "+trip.toString()+" \naddress: "+address.toString();}
-        else {return "name: "+name;}
+    public String toString() {
+        if (trip==null){
+            return "\nname: "+name+" \ntrip: none"+" \naddress: "+address.toString()+"\n";}
+        else {
+            return "\nname: "+name+" \ntrip: "+trip.toString()+" \naddress: "+address.toString()+"\n";}
     }
 
 

@@ -7,8 +7,8 @@ public class TravelOffice {
 //    Customer[] listOfCustomer = new Customer[2];
 
 
-    Set<Customer> setOfCustomers = new HashSet<>();
-    Map<String, Trip> mapOfTrips = new HashMap<>();
+    private Set<Customer> setOfCustomers = new HashSet<>();
+    private Map<String, Trip> mapOfTrips = new HashMap<>();
 
     public Set<Customer> getSetOfCustomers() {
         return setOfCustomers;
@@ -58,6 +58,22 @@ public class TravelOffice {
         return "Customers: " + setOfCustomers.toString() + "\n" + "Trips: " + mapOfTrips.values().toString();
     }
 
+    public void showTrips() {
+        System.out.println("All trips: ");
+        for (Map.Entry<String,Trip>trip:mapOfTrips.entrySet()
+             ) {
+            System.out.print(trip.getKey()+" ");
+            System.out.print(trip.getValue().toString());
+        }
+    }
+
+    public void showCustomers(){
+        System.out.println("All customers:");
+        for (Customer c:setOfCustomers
+             ) {
+            System.out.print(c.toString());
+        }
+    }
 
     public void addTrip(String name, Trip trip) {
         mapOfTrips.put(name, trip);

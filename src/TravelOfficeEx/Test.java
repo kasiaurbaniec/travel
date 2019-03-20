@@ -5,19 +5,11 @@ import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args) {
-        MainHandler mh =new MainHandler();
-        Scanner scanner=new Scanner(System.in);
-       top: while (true) {
-           int option;
-            mh.printMenu();
-           if(scanner.hasNextInt()){
-              option= scanner.nextInt();
-               mh.selectOptions(option);
-           }
+        MainHandler mh = new MainHandler();
+        mh.run();
 
-
-
-       }
+//
+//
 //        Customer cust1 = new Customer("Kasia");
 //        Customer cust2 = new Customer("Ela");
 //        Customer cust3 = new Customer("Stasiek");
@@ -39,8 +31,6 @@ public class Test {
 //        abroadTrip.setPrice(5000);
 //        TravelOffice travelOffice = new TravelOffice();
 //
-//
-//
 //        cust1.assignTrip(dtrip);
 //        cust2.assignTrip(abroadTrip);
 //        cust3.assignTrip(trip);
@@ -58,7 +48,8 @@ public class Test {
 //        travelOffice.removeCustomer(cust4);
 //        System.out.println(travelOffice.getCustomerCount());
 //        travelOffice.removeTrip("Lazy");
-//        System.out.println(travelOffice.toString());
-//        System.out.println(travelOffice.findCustomerByName("Kasia").toString());
+//        travelOffice.showTrips();
+//        travelOffice.showCustomers();
+
     }
 }
