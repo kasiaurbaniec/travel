@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Trip {
     private LocalDate start;
     private LocalDate end;
-    private String desctription;
+    private String destination;
     private int price=0;
 
     public int getPrice() {
@@ -20,21 +20,21 @@ public class Trip {
     public Trip(LocalDate start, LocalDate end, String desctription) {
         this.start = start;
         this.end = end;
-        this.desctription = desctription;
+        this.destination = desctription;
     }
 
 
     public Trip() {
     }
 
-    public String getDesctription() {
-        return desctription;
+    public String getDestination() {
+        return destination;
     }
 
 
 
     public String toString(){
-        return " destination: "+getDesctription()+" from "+start.toString()+" to  "+end.toString()+" price: "+getPrice();
+        return " destination: "+ getDestination()+" from "+start.toString()+" to  "+end.toString()+" price: "+getPrice();
     }
 
 }

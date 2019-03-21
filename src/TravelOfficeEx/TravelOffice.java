@@ -4,10 +4,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class TravelOffice {
-//    int customerCount = 0;
-//    Customer[] listOfCustomer = new Customer[2];
-
-
     private Set<Customer> setOfCustomers = new HashSet<>();
     private Map<String, Trip> mapOfTrips = new HashMap<>();
 
@@ -35,46 +31,30 @@ public class TravelOffice {
 //            listOfCustomer = copiedList;
 //            customerCount++;
 //        }
-
     }
 
-    //    public int getCustomerCount() {
-//        return customerCount;
-//    }
     public int getCustomerCount() {
         return setOfCustomers.size();
     }
 
     public String toString() {
         return "Customers: " + setOfCustomers.toString() + "\n" + "Trips: " + mapOfTrips.values().toString();
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("Zarejestrowani klienci:");
-//        sb.append("\n");
-//        for (Customer customer : listOfCustomer) {
-//            if (null == customer) continue;
-//            sb.append(customer.toString());
-//            sb.append("\n");
-//        }
-//        return sb.toString();
-
     }
 
     public void showTrips() {
-        System.out.print("All trips: ");
+        if (mapOfTrips.isEmpty()) {
+            System.out.println("List of trips is empty");
+        } else
+            System.out.println("All trips: ");
         mapOfTrips.entrySet().forEach(x -> System.out.println(x.getKey() + " " + x.getValue()));
     }
-    //działająca metoda bez lamb
-//    public void showTrips() {
-//        System.out.print("All trips: ");
-//        for (Map.Entry<String, Trip> trip : mapOfTrips.entrySet()
-//        ) {
-//            System.out.print("\n" + trip.getKey() + " ");
-//            System.out.print(trip.getValue().toString());
-//        }
-//    }
 
     public void showCustomers() {
-        setOfCustomers.forEach(x -> System.out.println(x.toString()));
+        if (setOfCustomers.isEmpty()) {
+            System.out.println("list of customers is empty");
+        } else
+            System.out.print("Customers");
+        setOfCustomers.forEach(x -> System.out.print(x.toString()));
     }
 
     public void addTrip(String id, Trip trip) {
@@ -84,41 +64,26 @@ public class TravelOffice {
     public boolean removeTrip(String id) throws NoSuchTripException {
         if (mapOfTrips.containsKey(id)) {
             mapOfTrips.remove(id);
-            throw new NoSuchTripException("no such trip");
-        }return true;
+            return true;
+        }
+        throw new NoSuchTripException("no such trip");
     }
-    //działająca metoda bez wyjątków
-//    public boolean removeTrip(String id) {
-//        if (mapOfTrips.containsKey(id)) {
-//            mapOfTrips.remove(id);
-//            return true;
-//        }  return false;
-//    }
-
 
     public Customer findCustomerByName(String name) throws NoSuchCustomerException {
         for (Customer c : setOfCustomers) {
-            if (c.getName().contains(name)) {
+            if (c.getName().toLowerCase().contains(name.toLowerCase())) {
                 return c;
             }
         }
         throw new NoSuchCustomerException("no such customer");
     }
 
-    // działająca metoda bez wyjątkó
-//    public boolean removeCustomer(Customer customer) {
-//        if (setOfCustomers.contains(customer)) {
-//            setOfCustomers.remove(customer);
-//            return true;
-//        } else
-//            return false;
-//    }
-    public boolean removeCustomer(Customer customer) throws NoSuchCustomerException {
+    public boolean removeCustomer(Customer customer) {
         if (setOfCustomers.contains(customer)) {
             setOfCustomers.remove(customer);
-
+            return true;
         }
-        throw new NoSuchCustomerException("cannot remove");
+        return false;
     }
 }
 
