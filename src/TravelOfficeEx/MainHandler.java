@@ -110,17 +110,19 @@ public class MainHandler implements UserCustomer {
 
     @Override
     public void assign() {
-        Customer customer;
+        Customer customer = null;
         String clientName;
         String tripName;
         Trip trip;
         do {
             System.out.println("give client you want to assign a trip");
             clientName = scanner.next();
-            customer = to.findCustomerByName(clientName);
-            if (customer == null) {
-                System.out.println("no such customer");
-            } else System.out.println("customer found");
+            try {
+                customer = to.findCustomerByName(clientName);
+                System.out.println("customer found");
+            } catch (NoSuchCustomerException e) {
+                System.out.println(e.getMessage());
+            }
         } while (customer == null);
         do {
             System.out.println("give name of trip you want to be assigned");
@@ -134,46 +136,113 @@ public class MainHandler implements UserCustomer {
         System.out.printf("\ntrip %s assigned to %s", tripName, clientName);
     }
 
+    //    @Override
+//    public void assign() {
+//        Customer customer;
+//        String clientName;
+//        String tripName;
+//        Trip trip;
+//        do {
+//            System.out.println("give client you want to assign a trip");
+//            clientName = scanner.next();
+//            customer = to.findCustomerByName(clientName);
+//            if (customer == null) {
+//                System.out.println("no such customer");
+//            } else System.out.println("customer found");
+//        } while (customer == null);
+//        do {
+//            System.out.println("give name of trip you want to be assigned");
+//            tripName = scanner.next();
+//            trip = to.getMapOfTrips().get(tripName);
+//            if (trip == null) {
+//                System.out.println("no such trip found");
+//            } else System.out.println("trip founded");
+//        } while (trip == null);
+//        customer.assignTrip(trip);
+//        System.out.printf("\ntrip %s assigned to %s", tripName, clientName);
+//    }
     @Override
     public boolean removeCustomer() {
-        if (to.getCustomerCount() != 0) {
-            System.out.println("give name of customer to remove");
-            String clientName = scanner.next();
-            Customer customer = to.findCustomerByName(clientName);
-            if (customer == null) {
-                System.out.println("no such customer");
-                showCustomers();
-            } else System.out.println("customer found");
-            to.removeCustomer(customer);
-            System.out.printf("\n%s was removed", clientName);
-            return true;
-        } else System.out.println("empty list");
-        return false;
+        System.out.println("give name of customer to remove");
+        String clientName = scanner.next();
+        try {
+            Customer cust=to.findCustomerByName(clientName);
+            to.getSetOfCustomers().removeIf(x -> x.getName().startsWith(clientName));
+            System.out.printf("\ncustomer %s removed",cust.getName());
+        } catch (NoSuchCustomerException e) {
+            System.out.println(e.getMessage());
+        }
+        return true;
     }
+//    @Override
+//    public boolean removeCustomer() {
+//        System.out.println("give name of customer to remove");
+//        String clientName = scanner.next();
+//        Customer customer;
+//        try {
+//            customer = to.findCustomerByName(clientName);
+//            to.removeCustomer(customer);
+//        } catch (NoSuchCustomerException e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        return true;
+//    }
+//    @Override
+//    public boolean removeCustomer() {
+//        if (to.getCustomerCount() != 0) {
+//            System.out.println("give name of customer to remove");
+//            String clientName = scanner.next();
+//            Customer customer = to.findCustomerByName(clientName);
+//            if (customer == null) {
+//                System.out.println("no such customer");
+//                showCustomers();
+//            } else System.out.println("customer found");
+//            to.removeCustomer(customer);
+//            System.out.printf("\n%s was removed", clientName);
+//            return true;
+//        } else System.out.println("empty list");
+//        return false;
+//    }
 
     @Override
     public boolean removeTrip() {
-        if (!to.getMapOfTrips().isEmpty()) {
-            String tripName;
-            do {
-                System.out.println("give name of trip to remove");
-                tripName = scanner.next();
-                if (to.getMapOfTrips().containsKey(tripName)) {
-                    System.out.printf("\ntrip %s found ", tripName);
-                    to.removeTrip(tripName);
-                    System.out.printf("\ntrip %s removed ", tripName);
-                    return true;
-                } else {
-                    System.out.println("no such trip found");
-                    showTrip();
-                    return false;
-                }
-            } while (false);
-        } else
-            System.out.println("empty list");
-        return false;
+        System.out.println("give name of trip to remove");
+        String tripName = scanner.next();
+        try {
+            to.removeTrip(tripName);
+        } catch (NoSuchTripException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        System.out.println("\ntrip removed ");
+        return true;
     }
 
+
+    //działając metoda bez wyjątków
+//    @Override
+//    public boolean removeTrip() {
+//        if (!to.getMapOfTrips().isEmpty()) {
+//            String tripName;
+//            do {
+//                System.out.println("give name of trip to remove");
+//                tripName = scanner.next();
+//                if (to.getMapOfTrips().containsKey(tripName)) {
+//                    System.out.printf("\ntrip %s found ", tripName);
+//                    to.removeTrip(tripName);
+//                    System.out.printf("\ntrip %s removed ", tripName);
+//                    return true;
+//                } else {
+//                    System.out.println("no such trip found");
+//                    showTrip();
+//                    return false;
+//                }
+//            } while (false);
+//        } else
+//            System.out.println("empty list");
+//        return false;
+//    }
     @Override
     public void showTrip() {
         to.showTrips();

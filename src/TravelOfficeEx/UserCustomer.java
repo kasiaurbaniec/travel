@@ -5,7 +5,7 @@ public interface UserCustomer {
     Trip addTrip();
     void assign();
     boolean removeCustomer();
-    boolean removeTrip();
+    boolean removeTrip() throws NoSuchTripException;
     void showTrip();
     void showCustomers();
 }

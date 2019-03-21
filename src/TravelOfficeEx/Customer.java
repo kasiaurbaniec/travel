@@ -17,7 +17,9 @@ private Trip trip=null;
         this.trip = trip;
     }
 
-
+    public String getName() {
+        return name;
+    }
 
     public String toString() {
         if(trip==null){

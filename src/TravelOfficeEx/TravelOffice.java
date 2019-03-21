@@ -1,6 +1,7 @@
 package TravelOfficeEx;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TravelOffice {
 //    int customerCount = 0;
@@ -45,7 +46,7 @@ public class TravelOffice {
     }
 
     public String toString() {
-
+        return "Customers: " + setOfCustomers.toString() + "\n" + "Trips: " + mapOfTrips.values().toString();
 //        StringBuilder sb = new StringBuilder();
 //        sb.append("Zarejestrowani klienci:");
 //        sb.append("\n");
@@ -55,52 +56,76 @@ public class TravelOffice {
 //            sb.append("\n");
 //        }
 //        return sb.toString();
-        return "Customers: " + setOfCustomers.toString() + "\n" + "Trips: " + mapOfTrips.values().toString();
-    }
 
+    }
     public void showTrips() {
         System.out.print("All trips: ");
-        for (Map.Entry<String,Trip>trip:mapOfTrips.entrySet()
-             ) {
-            System.out.print("\n"+trip.getKey()+" ");
-            System.out.print(trip.getValue().toString());
-        }
+        mapOfTrips.entrySet().forEach(x-> System.out.println(x.getKey()+" "+x.getValue()));
     }
+    //działająca metoda bez lamb
+//    public void showTrips() {
+//        System.out.print("All trips: ");
+//        for (Map.Entry<String, Trip> trip : mapOfTrips.entrySet()
+//        ) {
+//            System.out.print("\n" + trip.getKey() + " ");
+//            System.out.print(trip.getValue().toString());
+//        }
+//    }
 
-    public void showCustomers(){
-        System.out.println("All customers:");
-        for (Customer c:setOfCustomers
-             ) {
-            System.out.print(c.toString());
-        }
+    //    public void showCustomers(){
+//        System.out.println("All customers:");
+//        for (Customer c:setOfCustomers
+//             ) {
+//            System.out.print(c.toString());
+//        }
+//    }
+//ts sama metpda z użyciem lambd
+    public void showCustomers() {
+        setOfCustomers.forEach(x -> System.out.println(x.toString()));
     }
 
     public void addTrip(String id, Trip trip) {
         mapOfTrips.put(id, trip);
     }
 
-    public boolean removeTrip(String name) {
-        if (mapOfTrips.containsKey(name)) {
-            mapOfTrips.remove(name);
-            return true;
-        } else return false;
+    public boolean removeTrip(String id) throws NoSuchTripException {
+        mapOfTrips.remove(id);
+        throw new NoSuchTripException();
     }
+    //działająca metoda bez wyjątków
+//    public boolean removeTrip(String id) {
+//        if (mapOfTrips.containsKey(id)) {
+//            mapOfTrips.remove(id);
+//            return true;
+//        }  return false;
+//    }
+//public boolean removeTripLambda(String id){
+//        mapOfTrips.remo
+//}
 
-    public Customer findCustomerByName(String name) {
+
+    public Customer findCustomerByName(String name)throws NoSuchCustomerException {
         for (Customer c : setOfCustomers) {
-            if (c.toString().contains(name)) {
+            if (c.getName().contains(name)) {
                 return c;
             }
         }
-        return null;
+       throw new NoSuchCustomerException("no such customer");
     }
 
-    public boolean removeCustomer(Customer customer) {
-        if (setOfCustomers.contains(customer)) {
-            setOfCustomers.remove(customer);
-            return true;
-        } else
-            return false;
+    // działająca metoda bez wyjątkó
+//    public boolean removeCustomer(Customer customer) {
+//        if (setOfCustomers.contains(customer)) {
+//            setOfCustomers.remove(customer);
+//            return true;
+//        } else
+//            return false;
+//    }
+    public boolean removeCustomer(Customer customer) throws NoSuchCustomerException {
+        if(setOfCustomers.contains(customer)){
+                     setOfCustomers.remove(customer);
+
+    }throw new NoSuchCustomerException("cannot remove");
     }
 }
 
