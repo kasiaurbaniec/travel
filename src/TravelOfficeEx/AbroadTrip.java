@@ -1,6 +1,8 @@
 package TravelOfficeEx;
 
 
+import java.time.LocalDate;
+
 public class AbroadTrip extends Trip {
     public void setInsurance(boolean insurance) {
         this.insurance = insurance;
@@ -8,7 +10,7 @@ public class AbroadTrip extends Trip {
 
     boolean insurance;
 
-    public AbroadTrip(Date start, Date end, String desctription) {
+    public AbroadTrip(LocalDate start, LocalDate end, String desctription) {
         super(start, end, desctription);
     }
 

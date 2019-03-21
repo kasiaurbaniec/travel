@@ -1,12 +1,27 @@
 package TravelOfficeEx;
 
 
-import java.util.Scanner;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.FileHandler;
+
+import java.util.logging.Handler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         MainHandler mh = new MainHandler();
+        Logger root = Logger.getLogger("");
+       Arrays.asList(root.getHandlers()).forEach(x->root.removeHandler(x));
+        Logger logger = Logger.getLogger("TravelOffice");
+        logger.setUseParentHandlers(false);
+        FileHandler fh = new FileHandler("log.txt");
+        fh.setFormatter(new SimpleFormatter());
+        logger.addHandler(fh);
+        logger.info("run!");
         mh.run();
+
 
 //
 //

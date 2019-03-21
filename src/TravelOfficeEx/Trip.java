@@ -1,10 +1,11 @@
 package TravelOfficeEx;
 
 
+import java.time.LocalDate;
 
 public class Trip {
-    private Date start;
-    private Date end;
+    private LocalDate start;
+    private LocalDate end;
     private String desctription;
     private int price=0;
 
@@ -16,7 +17,7 @@ public class Trip {
         this.price = price;
     }
 
-    public Trip(Date start, Date end, String desctription) {
+    public Trip(LocalDate start, LocalDate end, String desctription) {
         this.start = start;
         this.end = end;
         this.desctription = desctription;

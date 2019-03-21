@@ -1,6 +1,8 @@
 package TravelOfficeEx;
 
 
+import java.time.LocalDate;
+import java.util.List;
 
 public class DomesticTrip extends Trip {
     int ownArrivalDiscount=400;
@@ -16,7 +18,7 @@ public class DomesticTrip extends Trip {
         return super.getPrice()-ownArrivalDiscount;
     }
 
-    public DomesticTrip(Date start, Date end, String desctription) {
+    public DomesticTrip(LocalDate start, LocalDate end, String desctription) {
         super(start, end, desctription);
     }
 }

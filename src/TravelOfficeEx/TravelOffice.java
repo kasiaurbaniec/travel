@@ -58,9 +58,10 @@ public class TravelOffice {
 //        return sb.toString();
 
     }
+
     public void showTrips() {
         System.out.print("All trips: ");
-        mapOfTrips.entrySet().forEach(x-> System.out.println(x.getKey()+" "+x.getValue()));
+        mapOfTrips.entrySet().forEach(x -> System.out.println(x.getKey() + " " + x.getValue()));
     }
     //działająca metoda bez lamb
 //    public void showTrips() {
@@ -72,14 +73,6 @@ public class TravelOffice {
 //        }
 //    }
 
-    //    public void showCustomers(){
-//        System.out.println("All customers:");
-//        for (Customer c:setOfCustomers
-//             ) {
-//            System.out.print(c.toString());
-//        }
-//    }
-//ts sama metpda z użyciem lambd
     public void showCustomers() {
         setOfCustomers.forEach(x -> System.out.println(x.toString()));
     }
@@ -89,8 +82,10 @@ public class TravelOffice {
     }
 
     public boolean removeTrip(String id) throws NoSuchTripException {
-        mapOfTrips.remove(id);
-        throw new NoSuchTripException();
+        if (mapOfTrips.containsKey(id)) {
+            mapOfTrips.remove(id);
+            throw new NoSuchTripException("no such trip");
+        }return true;
     }
     //działająca metoda bez wyjątków
 //    public boolean removeTrip(String id) {
@@ -99,18 +94,15 @@ public class TravelOffice {
 //            return true;
 //        }  return false;
 //    }
-//public boolean removeTripLambda(String id){
-//        mapOfTrips.remo
-//}
 
 
-    public Customer findCustomerByName(String name)throws NoSuchCustomerException {
+    public Customer findCustomerByName(String name) throws NoSuchCustomerException {
         for (Customer c : setOfCustomers) {
             if (c.getName().contains(name)) {
                 return c;
             }
         }
-       throw new NoSuchCustomerException("no such customer");
+        throw new NoSuchCustomerException("no such customer");
     }
 
     // działająca metoda bez wyjątkó
@@ -122,10 +114,11 @@ public class TravelOffice {
 //            return false;
 //    }
     public boolean removeCustomer(Customer customer) throws NoSuchCustomerException {
-        if(setOfCustomers.contains(customer)){
-                     setOfCustomers.remove(customer);
+        if (setOfCustomers.contains(customer)) {
+            setOfCustomers.remove(customer);
 
-    }throw new NoSuchCustomerException("cannot remove");
+        }
+        throw new NoSuchCustomerException("cannot remove");
     }
 }
 

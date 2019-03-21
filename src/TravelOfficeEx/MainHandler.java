@@ -1,10 +1,15 @@
 package TravelOfficeEx;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class MainHandler implements UserCustomer {
     TravelOffice to = new TravelOffice();
     Scanner scanner = new Scanner(System.in);
+    private static Logger logger = Logger.getLogger("TravelOffice");
+
 
     public void printMenu() {
         System.out.println();
@@ -46,6 +51,7 @@ public class MainHandler implements UserCustomer {
 
     @Override
     public Customer addCustomer() {
+        logger.info("start to add new customer");
         System.out.println("Give customers name");
         String name = scanner.next();
         System.out.println("Give customers Address \n Street:");
@@ -57,32 +63,37 @@ public class MainHandler implements UserCustomer {
         System.out.println("Give customers code");
         String code = scanner.next();
         Address address = new Address(street, streetNumber, city, code);
+        logger.info("new address was successfully created");
         Customer customer = new Customer(name);
         customer.setAddress(address);
-        System.out.printf("\nNew customer %s was created", name);
+        logger.info("customer has addres");
         to.addCustomer(customer);
+        logger.info("customer was created and added to list");
+
         return customer;
     }
 
     @Override
     public Trip addTrip() {
+        logger.info("start do create new trip");
         Trip trip = null;
         System.out.println("give id for new trip");
         String name = scanner.next();
         System.out.println("give destination of a trip");
         String desc = scanner.next();
-        Date startDate;
+        LocalDate startDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         do {
-            System.out.println("give begin date: dd-mm-yyyy");
+            System.out.println("give begin date: yyyy-mm-dd");
             String dateStr = scanner.next();
-            startDate = Date.of(dateStr, "-");
+            startDate = LocalDate.parse(dateStr, formatter);
         }
         while (startDate == null);
-        Date endDate;
+        LocalDate endDate;
         do {
-            System.out.println("give date when it end, dd-mm-yyyy");
+            System.out.println("give date when it end, yyyy-mm-dd");
             String dateStrEnd = scanner.next();
-            endDate = Date.of(dateStrEnd, "-");
+            endDate = LocalDate.parse(dateStrEnd, formatter);
         } while (endDate == null);
         System.out.println("give price");
         int price = scanner.nextInt();
@@ -94,17 +105,19 @@ public class MainHandler implements UserCustomer {
             trip = new DomesticTrip(startDate, endDate, desc);
             trip.setPrice(price);
             ((DomesticTrip) trip).setOwnArrivalDiscount(disc);
+            logger.info("discount included");
         } else {
             trip = new AbroadTrip(startDate, endDate, desc);
             trip.setPrice(price);
             System.out.println("add insurance? y/n ");
             String ins = scanner.next();
-            if (ins == "y") {
+            if (ins.startsWith("y")) {
                 ((AbroadTrip) trip).setInsurance(true);
+                logger.info("insurance included");
             }
         }
         to.addTrip(name, trip);
-        System.out.printf("\nnew trip named %s created", name);
+       logger.info("new trip created and added to list");
         return trip;
     }
 
@@ -119,7 +132,7 @@ public class MainHandler implements UserCustomer {
             clientName = scanner.next();
             try {
                 customer = to.findCustomerByName(clientName);
-                System.out.println("customer found");
+                logger.info("customer found");
             } catch (NoSuchCustomerException e) {
                 System.out.println(e.getMessage());
             }
@@ -130,10 +143,11 @@ public class MainHandler implements UserCustomer {
             trip = to.getMapOfTrips().get(tripName);
             if (trip == null) {
                 System.out.println("no such trip found");
-            } else System.out.println("trip founded");
+                logger.warning("trip no exist");
+            } logger.info("trip found");
         } while (trip == null);
         customer.assignTrip(trip);
-        System.out.printf("\ntrip %s assigned to %s", tripName, clientName);
+        logger.info("trip assigned to customer");
     }
 
     //    @Override
@@ -166,9 +180,9 @@ public class MainHandler implements UserCustomer {
         System.out.println("give name of customer to remove");
         String clientName = scanner.next();
         try {
-            Customer cust=to.findCustomerByName(clientName);
+            Customer cust = to.findCustomerByName(clientName);
             to.getSetOfCustomers().removeIf(x -> x.getName().startsWith(clientName));
-            System.out.printf("\ncustomer %s removed",cust.getName());
+            System.out.printf("\ncustomer %s removed", cust.getName());
         } catch (NoSuchCustomerException e) {
             System.out.println(e.getMessage());
         }
@@ -211,11 +225,12 @@ public class MainHandler implements UserCustomer {
         String tripName = scanner.next();
         try {
             to.removeTrip(tripName);
+            System.out.println("trip removed ");
         } catch (NoSuchTripException e) {
             System.out.println(e.getMessage());
             return false;
         }
-        System.out.println("\ntrip removed ");
+
         return true;
     }
 
